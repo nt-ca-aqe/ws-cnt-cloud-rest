@@ -1,0 +1,6 @@
+feign:
+  hystrix:
+    enabled: true
+spring:
+  application:
+    name: service-foo
