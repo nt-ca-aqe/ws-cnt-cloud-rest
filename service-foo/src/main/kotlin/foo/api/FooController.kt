@@ -1,6 +1,6 @@
-package com.example.servicefoo.api
+package foo.api
 
-import com.example.servicefoo.gateways.bar.BarClient
+import foo.gateways.bar.BarClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -12,8 +12,6 @@ class FooController(
 ) {
 
     @GetMapping
-    fun get(): Map<String, Any> {
-        return barClient.get()
-    }
+    fun get() = barClient.get()
 
 }

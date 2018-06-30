@@ -1,10 +1,10 @@
-package com.example.servicefoo.gateways.bar
+package utils
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
-class WireMockBean : WireMockServer(0) {
+class WireMockServerBean : WireMockServer(0) {
 
     @PostConstruct fun postConstruct() {
         start()

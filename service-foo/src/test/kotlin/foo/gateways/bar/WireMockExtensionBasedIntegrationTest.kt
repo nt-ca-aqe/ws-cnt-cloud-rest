@@ -1,4 +1,4 @@
-package com.example.servicefoo.gateways.bar
+package foo.gateways.bar
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.*
@@ -11,40 +11,24 @@ import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.extension.*
 import org.mockito.BDDMockito.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration
-import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.cloud.netflix.ribbon.RibbonAutoConfiguration
-import org.springframework.cloud.openfeign.FeignAutoConfiguration
-import org.springframework.cloud.openfeign.ribbon.FeignRibbonClientAutoConfiguration
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.junit.jupiter.SpringExtension
+import utils.FeignClientTestConfiguration
+import utils.SimpleWireMockExtension
+
+@ComponentScan
+class WireMockExtensionBasedIntegrationTestConfiguration : FeignClientTestConfiguration()
 
 @SpringBootTest(
-        classes = [AnotherBarClientIntegrationTest.TestConfiguration::class],
-        properties = [
-            "eureka.client.enabled=false",
-            "feign.hystrix.enabled=true",
-            "ribbon.eager-load.enabled=true",
-            "ribbon.eager-load.clients=service-bar"
-        ]
+        classes = [WireMockExtensionBasedIntegrationTestConfiguration::class],
+        properties = ["eureka.client.enabled=false"]
 )
 @ExtendWith(SimpleWireMockExtension::class, SpringExtension::class)
-internal class AnotherBarClientIntegrationTest(
+internal class WireMockExtensionBasedIntegrationTest(
         @Autowired val cut: BarClient
 ) {
-
-    @ImportAutoConfiguration(
-            FeignAutoConfiguration::class,
-            FeignRibbonClientAutoConfiguration::class,
-            RibbonAutoConfiguration::class,
-            HttpMessageConvertersAutoConfiguration::class,
-            JacksonAutoConfiguration::class
-    )
-    @ComponentScan
-    class TestConfiguration
 
     @MockBean lateinit var loadBalancer: ILoadBalancer
 
