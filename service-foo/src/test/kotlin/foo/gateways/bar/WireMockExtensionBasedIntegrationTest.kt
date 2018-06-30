@@ -8,8 +8,9 @@ import com.netflix.loadbalancer.Server
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.RepeatedTest
-import org.junit.jupiter.api.extension.*
-import org.mockito.BDDMockito.*
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.BDDMockito.any
+import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean

@@ -18,7 +18,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import utils.FeignClientTestConfiguration
-import utils.WireMockServerBean
 
 @ComponentScan
 class WireMockAutoconfigurationIntegrationTestConfiguration : FeignClientTestConfiguration() {
