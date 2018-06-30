@@ -29,7 +29,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
         classes = [BarClientIntegrationTest.TestConfiguration::class],
         properties = [
             "eureka.client.enabled=false",
-            "feign.hystrix.enabled=true"
+            "feign.hystrix.enabled=true",
+            "ribbon.eager-load.enabled=true",
+            "ribbon.eager-load.clients=service-bar"
         ]
 )
 @ExtendWith(SpringExtension::class)
@@ -52,12 +54,6 @@ internal class BarClientIntegrationTest(
 
         @Bean fun ribbonServerList(server: WireMockServer): ServerList<Server> {
             return StaticServerList<Server>(Server("localhost", server.port()))
-        }
-
-        fun loadBalancer(server: WireMockServer): ILoadBalancer {
-            return mock(ILoadBalancer::class.java).also {
-                given(it.chooseServer(any())).willReturn(Server("localhost", server.port()))
-            }
         }
 
     }
