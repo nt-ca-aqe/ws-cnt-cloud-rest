@@ -12,6 +12,12 @@ class FooController(
 ) {
 
     @GetMapping
-    fun get() = barClient.get()
+    fun get(): Map<String, Any?> {
+        val barData = barClient.get()
+        return mapOf(
+                "msg" to barData["msg"],
+                "answer" to 42
+        )
+    }
 
 }

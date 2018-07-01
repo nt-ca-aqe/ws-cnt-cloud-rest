@@ -26,7 +26,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 
-@SpringBootTest(webEnvironment = RANDOM_PORT)
+@SpringBootTest(
+        webEnvironment = RANDOM_PORT,
+        properties = ["eureka.client.enabled=false"]
+)
 @AutoConfigureMockMvc
 @AutoConfigureWireMock(port = 0)
 @ExtendWith(SpringExtension::class)
@@ -47,38 +50,24 @@ internal class ApplicationAcceptanceTest(
     @BeforeEach fun resetHystrix(): Unit = Hystrix.reset()
     @BeforeEach fun resetWireMock(): Unit = wireMock.resetMappings()
 
-    @DirtiesContext
-    @Test fun `if bar service is unavailable, the fallback is used`() {
-        wireMock.stop()
-
-        mockMvc.perform(get("/foo"))
-                .andExpect(status().isOk)
-                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-                .andExpect(content().json("""{"msg": "Hello Fallback!"}"""))
-    }
-
-    @Test fun `if bar service fails, the fallback is used`() {
-        wireMock.givenThat(WireMock.get(WireMock.urlEqualTo("/bar"))
-                .willReturn(WireMock.aResponse()
-                        .withStatus(500)))
-
-        mockMvc.perform(get("/foo"))
-                .andExpect(status().isOk)
-                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-                .andExpect(content().json("""{"msg": "Hello Fallback!"}"""))
-    }
-
-    @Test fun `if bar service is available, requests are delegated to it`() {
+    @Test fun `msg property of foo response is provided by bar service`() {
         wireMock.givenThat(WireMock.get(WireMock.urlEqualTo("/bar"))
                 .willReturn(WireMock.aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/json")
                         .withBody("""{"msg": "Hello Bar!"}""")))
 
+        val expectedResponse = """
+            {
+                "msg": "Hello Bar!",
+                "answer": 42
+            }
+            """
+
         mockMvc.perform(get("/foo"))
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-                .andExpect(content().json("""{"msg": "Hello Bar!"}"""))
+                .andExpect(content().json(expectedResponse, true))
     }
 
 }
