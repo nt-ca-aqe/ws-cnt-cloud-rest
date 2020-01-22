@@ -8,7 +8,6 @@ import com.netflix.loadbalancer.Server
 import com.netflix.loadbalancer.ServerList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,7 +36,7 @@ internal class WireMockBeanIntegrationTest(
 ) {
     @BeforeEach fun resetWireMock(): Unit = wireMock.resetMappings()
 
-    @RepeatedTest(2)
+    @Test
     fun `if no server is available, the fallback is invoked`() {
         val result = feignClientMy.helloString()
         assertThat(result["msg"]).isEqualTo("Hello Fallback!")

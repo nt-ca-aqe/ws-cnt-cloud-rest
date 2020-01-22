@@ -8,8 +8,6 @@ import com.netflix.loadbalancer.ILoadBalancer
 import com.netflix.loadbalancer.Server
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Disabled
-import org.junit.jupiter.api.RepeatedTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.any
@@ -37,8 +35,7 @@ internal class WireMockExtensionBasedIntegrationTest(@Autowired val feignClientM
         given(loadBalancer.chooseServer(any())).willReturn(Server("localhost", wireMock.port()))
     }
 
-    @RepeatedTest(10)
-    @Disabled
+    @Test
     fun `if no server is available, the fallback is invoked`() {
         val result = feignClientMy.helloString()
         assertThat(result["msg"]).isEqualTo("Hello Fallback!")

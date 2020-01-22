@@ -1,4 +1,7 @@
 .gradle
+gradle
+gradlew
+gradlew.bat
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
@@ -17,11 +20,3 @@
 *.iml
 *.ipr
 /out/
-
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
