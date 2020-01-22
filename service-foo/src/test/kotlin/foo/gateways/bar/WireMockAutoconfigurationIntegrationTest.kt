@@ -1,7 +1,9 @@
 package foo.gateways.bar
 
 import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock.*
+import com.github.tomakehurst.wiremock.client.WireMock.aResponse
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
 import com.netflix.hystrix.Hystrix
 import com.netflix.loadbalancer.Server
 import com.netflix.loadbalancer.ServerList
@@ -35,8 +37,8 @@ class WireMockAutoconfigurationIntegrationTestConfiguration : FeignClientTestCon
 @AutoConfigureWireMock(port = 0)
 @ExtendWith(SpringExtension::class)
 internal class WireMockAutoconfigurationIntegrationTest(
-        @Autowired val cut: BarClient,
-        @Autowired val wireMock: WireMockServer
+    @Autowired val cut: FeignClientMy,
+    @Autowired val wireMock: WireMockServer
 ) {
 
     @BeforeEach fun resetHystrix(): Unit = Hystrix.reset()
@@ -44,7 +46,7 @@ internal class WireMockAutoconfigurationIntegrationTest(
 
     @RepeatedTest(10)
     fun `if no server is available, the fallback is invoked`() {
-        val result = cut.get()
+        val result = cut.helloString()
         assertThat(result["msg"]).isEqualTo("Hello Fallback!")
     }
 
@@ -56,7 +58,7 @@ internal class WireMockAutoconfigurationIntegrationTest(
                         .withHeader("Content-Type", "application/json")
                         .withBody("""{"msg": "Hello WireMock!"}""")))
 
-        val result = cut.get()
+        val result = cut.helloString()
         assertThat(result["msg"]).isEqualTo("Hello WireMock!")
     }
 
