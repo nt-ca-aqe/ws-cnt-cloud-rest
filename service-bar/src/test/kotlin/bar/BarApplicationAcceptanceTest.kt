@@ -9,7 +9,5 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SpringExtension::class)
 internal class BarApplicationAcceptanceTest {
-
     @Test fun contextLoads() = Unit
-
 }
