@@ -9,17 +9,16 @@ plugins {
 }
 repositories { mavenCentral(); mavenLocal(); jcenter() }
 
+val springBoot = "2.2.3.RELEASE"
+val cloud = "Hoxton.SR1"
+
 dependencies {
-    val springBoot = "2.2.3.RELEASE"
-//	implementation(kotlin("stdlib"))
-//	implementation(enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:springBoot"))
-    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
-    implementation("org.springframework.cloud:spring-cloud-config-client")
+    //    implementation("org.springframework.cloud:spring-cloud-config-client")
+    implementation(kotlin("stdlib"))
+    implementation("org.springframework.cloud", "spring-cloud-starter-netflix-eureka-server")
 }
+
+dependencyManagement { imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$cloud") } }
 
 tasks { withType<KotlinCompile> { kotlinOptions { jvmTarget = "11" } } }
-
-dependencyManagement {
-    imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE") }
-}
 
