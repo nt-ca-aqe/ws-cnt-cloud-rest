@@ -33,7 +33,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 @AutoConfigureMockMvc
 @AutoConfigureWireMock(port = 0)
 @ExtendWith(SpringExtension::class)
-internal class ApplicationAcceptanceTest(
+internal class FooApplicationAcceptanceTest(
         @Autowired val mockMvc: MockMvc,
         @Autowired val wireMock: WireMockServer
 ) {

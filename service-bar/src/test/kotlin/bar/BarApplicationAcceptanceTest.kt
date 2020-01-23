@@ -1,4 +1,4 @@
-package eureka
+package bar
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -8,7 +8,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ExtendWith(SpringExtension::class)
-internal class ApplicationAcceptanceTest {
+internal class BarApplicationAcceptanceTest {
 
     @Test fun contextLoads() = Unit
 

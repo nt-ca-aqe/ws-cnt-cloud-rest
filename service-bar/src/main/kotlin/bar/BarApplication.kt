@@ -1,13 +1,13 @@
-package eureka
+package bar
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 
-@EnableEurekaServer
+@EnableDiscoveryClient
 @SpringBootApplication
-class Application
+class BarApplication
 
 fun main(args: Array<String>) {
-    runApplication<Application>(*args)
+    runApplication<BarApplication>(*args)
 }
