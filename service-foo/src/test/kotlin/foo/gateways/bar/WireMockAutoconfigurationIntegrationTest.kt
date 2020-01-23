@@ -33,14 +33,14 @@ class WireMockAutoconfigurationIntegrationTestConfiguration : FeignClientTestCon
 @AutoConfigureWireMock(port = 0)
 @ExtendWith(SpringExtension::class)
 internal class WireMockAutoconfigurationIntegrationTest(
-    @Autowired val cut: FeignClientMy, @Autowired val wireMock: WireMockServer
+    @Autowired val feignClientMy: FeignClientMy, @Autowired val wireMock: WireMockServer
 ) {
 
     @BeforeEach fun resetWireMock(): Unit = wireMock.resetMappings()
 
     @Test
     fun `if no server is available, the fallback is invoked`() {
-        val result = cut.helloString()
+        val result = feignClientMy.helloString()
         assertThat(result["msg"]).isEqualTo("Hello Fallback!")
     }
 
@@ -52,7 +52,7 @@ internal class WireMockAutoconfigurationIntegrationTest(
                         .withHeader("Content-Type", "application/json")
                         .withBody("""{"msg": "Hello WireMock!"}""")))
 
-        val result = cut.helloString()
+        val result = feignClientMy.helloString()
         assertThat(result["msg"]).isEqualTo("Hello WireMock!")
     }
 
