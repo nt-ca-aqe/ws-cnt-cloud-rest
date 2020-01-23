@@ -18,7 +18,7 @@ dependencies {
     testImplementation("org.springframework.boot", "spring-boot-starter-test")
 //    { exclude("org.junit.vintage", "junit-vintage-engine") }
     testImplementation("org.junit.jupiter", "junit-jupiter-api")
-    testImplementation("org.junit.jupiter", "junit-jupiter-engine")
+//    testImplementation("org.junit.jupiter", "junit-jupiter-engine")
     testImplementation("org.springframework.cloud", "spring-cloud-contract-wiremock")
     // Cloud
     implementation("org.springframework.cloud", "spring-cloud-starter-netflix-eureka-client")

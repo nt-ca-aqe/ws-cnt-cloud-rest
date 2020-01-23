@@ -17,7 +17,6 @@ dependencies {
     implementation("org.springframework.cloud", "spring-cloud-starter-netflix-eureka-server")
     // implementation("org.springframework.cloud", "spring-cloud-config-client")
 }
-
 dependencyManagement { imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$cloud") } }
 
 tasks { withType<KotlinCompile> { kotlinOptions { jvmTarget = "11" } } }
