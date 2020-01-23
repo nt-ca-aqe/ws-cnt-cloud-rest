@@ -17,8 +17,6 @@ import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
 import org.springframework.cloud.netflix.ribbon.StaticServerList
 import org.springframework.context.annotation.Bean
-import org.springframework.http.MediaType.APPLICATION_JSON_UTF8
-import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -66,7 +64,6 @@ internal class FooApplicationAcceptanceTest(
 
         mockMvc.perform(get("/foo"))
                 .andExpect(status().isOk)
-                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
                 .andExpect(content().json(expectedResponse, true))
     }
 

@@ -9,13 +9,13 @@ plugins {
 }
 repositories { mavenCentral(); mavenLocal(); jcenter() }
 
-val springBoot = "2.2.3.RELEASE"
-val cloud = "Hoxton.SR1"
+val cloud: String by project
+val springBoot: String by project
 
 dependencies {
-    //    implementation("org.springframework.cloud:spring-cloud-config-client")
     implementation(kotlin("stdlib"))
     implementation("org.springframework.cloud", "spring-cloud-starter-netflix-eureka-server")
+    // implementation("org.springframework.cloud", "spring-cloud-config-client")
 }
 
 dependencyManagement { imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$cloud") } }

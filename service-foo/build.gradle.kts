@@ -1,5 +1,3 @@
-//group = "com.example"
-
 plugins {
     val kotlinVersion = "1.3.61"
     kotlin("jvm") version kotlinVersion
@@ -37,9 +35,7 @@ tasks {
     test { useJUnitPlatform() }
     compileKotlin { kotlinOptions { jvmTarget = java }; sourceCompatibility = java; targetCompatibility = java }
 }
-val cloud = "Hoxton.SR1"
+val cloud: String by project
 
-dependencyManagement {
-    imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$cloud") }
-}
+dependencyManagement { imports { mavenBom("org.springframework.cloud:spring-cloud-dependencies:$cloud") } }
 
