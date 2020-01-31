@@ -1,7 +1,4 @@
 .gradle
-gradle
-gradlew
-gradlew.bat
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
@@ -20,3 +17,4 @@ gradlew.bat
 *.iml
 *.ipr
 /out/
+
